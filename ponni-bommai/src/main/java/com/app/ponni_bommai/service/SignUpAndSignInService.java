@@ -12,7 +12,16 @@ public class SignUpAndSignInService {
 	@Autowired
 	SignUpAndSignInRepo repo;
 
-	public SignUpAndSignInModel signIn(SignUpAndSignInModel model) {
+	public SignUpAndSignInModel signUp(SignUpAndSignInModel model) {
 		return repo.save(model);
+	}
+	
+	public SignUpAndSignInModel signIn(SignUpAndSignInModel model) {
+		for(SignUpAndSignInModel sineInModel : repo.findAll()) {
+			if(sineInModel.getUsername().equals(model.getUsername()) && sineInModel.getPassword().equals(model.getPassword())) {
+				return sineInModel;
+			}
+		}
+		return null;
 	}
 }
